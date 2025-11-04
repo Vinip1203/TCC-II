@@ -34,8 +34,6 @@ app.config["PERMANENT_SESSION_LIFETIME"] = 3600  # ← CORRIGIDO: 1 hora em segu
 app.config["SESSION_TYPE"] = "filesystem"
 app.config['WTF_CSRF_ENABLED'] = True
 
-# Para produção no Railway, mude para:
-app.config["SESSION_TYPE"] = "null"  # ← SESSÕES DESATIVADAS TEMPORARIAMENTE
 
 Session(app)
 
