@@ -1,0 +1,29 @@
+.form-check:has(.form-check-input:checked) {
+    border-color: #3886fa !important; 
+    background-color: #cfe2ff !important;
+}
+
+.custom-title {
+    font-size: 1.3rem;
+}
+
+input.form-control {
+    font-size: 1em;
+    line-height: 1;
+    padding-top: 1rem; 
+    padding-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    
+    .custom-title {
+        text-align: center; 
+    }
+
+    .form-check {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center; 
+    }
+}

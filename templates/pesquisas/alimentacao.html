@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário Alimentação</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pesquisas/alimentacao.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+</head>
+<body class="bg-light">
+
+    {% if admin %}
+        {% include 'navbar/nav_adm.html' %}
+    {% else %}
+        {% include 'navbar/nav_pesq.html' %}
+    {% endif %}
+
+    <div class="d-flex justify-content-center align-items-center my-5 min-vh-100">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-10 col-lg-8 col-xl-7">
+
+                    {% with messages = get_flashed_messages(with_categories=True) %}
+                        {% if messages %}
+                            <div class="flash-message text-center">
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{ category }} py-4" role="alert">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+
+                    <form method="POST" novalidate action="
+                    {% if editar %}
+                            {{ url_for('alimentacao.editar_alimentacao', id=id_pesquisa) }}
+                        {% else %}
+                            {{ url_for('alimentacao.coleta_dados_alimentacao', id_entrevistado=id_entrevistado, token=request.args.get('token')) }}
+                        {% endif %}">
+
+                        {{ form.hidden_tag() }}
+
+                        <!-- QUANTIDADE FRUTAS -->
+                        <div class="card mb-4 shadow border mt-5 p-3">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">{{ form.qtd_frutas.label }}</h5>
+                                <div class="d-flex flex-column gap-3">
+                                    {% for subfield in form.qtd_frutas %}
+                                        <label class="form-check rounded-3 border p-3 mb-2">
+                                            {{ subfield(class_="form-check-input visually-hidden") }}
+                                            <span class="text-dark fw-normal">{{ subfield.label }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% for error in form.qtd_frutas.errors %}
+                                    <div class="form-text text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- QUANTIDADE LEGUMES E VERDURAS -->
+                        <div class="card mb-4 shadow border mt-5 p-3">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">{{ form.qtd_verduras.label }}</h5>
+                                <div class="d-flex flex-column gap-3">
+                                    {% for subfield in form.qtd_verduras %}
+                                        <label class="form-check rounded-3 border p-3 mb-2">
+                                            {{ subfield(class_="form-check-input visually-hidden") }}
+                                            <span class="text-dark fw-normal">{{ subfield.label }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% for error in form.qtd_verduras.errors %}
+                                    <div class="form-text text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- QUANTIDADE LEGUMINOSAS -->
+                        <div class="card mb-4 shadow border mt-5 p-3">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">{{ form.qtd_leguminosas.label }}</h5>
+                                <div class="d-flex flex-column gap-3">
+                                    {% for subfield in form.qtd_leguminosas %}
+                                        <label class="form-check rounded-3 border p-3 mb-2">
+                                            {{ subfield(class_="form-check-input visually-hidden") }}
+                                            <span class="text-dark fw-normal">{{ subfield.label }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% for error in form.qtd_leguminosas.errors %}
+                                    <div class="form-text text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                         <!-- CARBOIDRATOS -->
+                        <div class="card mb-4 shadow border mt-5 p-3">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">Qual é a quantidade, em média, que você consome por dia dos  alimentados listados abaixo?</h5>
+        
+                                <div class="mb-4">
+                                    <h6 class="fw-bold text-muted">{{ form.qtd_carbo.label }}</h6>
+                                    {{ form.qtd_carbo(class_="form-control", placeholder="Colheres de sopa", autocomplete="off") }}
+                                    {% for error in form.qtd_carbo.errors %}
+                                        <div class="form-text text-danger">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+
+                                <div class="mb-4">
+                                    <h6 class="fw-bold text-muted">{{ form.qtd_pao.label }}</h6>
+                                    {{ form.qtd_pao(class_="form-control", placeholder="Unidades/Fatias", autocomplete="off") }}
+                                    {% for error in form.qtd_pao.errors %}
+                                        <div class="form-text text-danger">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <h6 class="fw-bold text-muted">{{ form.qtd_bolo.label }}</h6>
+                                    {{ form.qtd_bolo(class_="form-control", placeholder="Fatias", autocomplete="off") }}
+                                    {% for error in form.qtd_bolo.errors %}
+                                        <div class="form-text text-danger">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+
+                                  <div class="mb-4">
+                                    <h6 class="fw-bold text-muted">{{ form.qtd_bolacha.label }}</h6>
+                                    {{ form.qtd_bolacha(class_="form-control", placeholder="Unidades", autocomplete="off") }}
+                                    {% for error in form.qtd_bolacha.errors %}
+                                        <div class="form-text text-danger">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- QUANTIDADE CARNES E OVOS -->
+                        <div class="card mb-4 shadow border mt-5 p-3">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">{{ form.qtd_carnes.label }}</h5>
+                                <div class="d-flex flex-column gap-3">
+                                    {% for subfield in form.qtd_carnes %}
+                                        <label class="form-check rounded-3 border p-3 mb-2">
+                                            {{ subfield(class_="form-check-input visually-hidden") }}
+                                            <span class="text-dark fw-normal">{{ subfield.label }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% for error in form.qtd_carnes.errors %}
+                                    <div class="form-text text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- GORDURA CARNE -->
+                        <div class="card mb-4 shadow border mt-5 p-3">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">{{ form.gordura_carne.label }}</h5>
+                                <div class="d-flex flex-column gap-3">
+                                    {% for subfield in form.gordura_carne %}
+                                        <label class="form-check rounded-3 border p-3 mb-2">
+                                            {{ subfield(class_="form-check-input visually-hidden") }}
+                                            <span class="text-dark fw-normal">{{ subfield.label }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% for error in form.gordura_carne.errors %}
+                                    <div class="form-text text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <!-- QUANTIDADE PEIXES -->
+                        <div class="card mb-4 shadow border mt-5 p-3">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">{{ form.qtd_peixes.label }}</h5>
+                                <div class="d-flex flex-column gap-3">
+                                    {% for subfield in form.qtd_peixes %}
+                                        <label class="form-check rounded-3 border p-3 mb-2">
+                                            {{ subfield(class_="form-check-input visually-hidden") }}
+                                            <span class="text-dark fw-normal">{{ subfield.label }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% for error in form.qtd_peixes.errors %}
+                                    <div class="form-text text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- QUANTIDADE LATICINIOS -->
+                        <div class="card mb-4 shadow border mt-5 p-3">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">{{ form.qtd_laticinios.label }}</h5>
+                                <div class="d-flex flex-column gap-3">
+                                    {% for subfield in form.qtd_laticinios %}
+                                        <label class="form-check rounded-3 border p-3 mb-2">
+                                            {{ subfield(class_="form-check-input visually-hidden") }}
+                                            <span class="text-dark fw-normal">{{ subfield.label }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% for error in form.qtd_laticinios.errors %}
+                                    <div class="form-text text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- TIPO LATICINIOS -->
+                        <div class="card mb-4 shadow border mt-5 p-3">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">{{ form.tipo_laticinios.label }}</h5>
+                                <div class="d-flex flex-column gap-3">
+                                    {% for subfield in form.tipo_laticinios %}
+                                        <label class="form-check rounded-3 border p-3 mb-2">
+                                            {{ subfield(class_="form-check-input visually-hidden") }}
+                                            <span class="text-dark fw-normal">{{ subfield.label }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% for error in form.tipo_laticinios.errors %}
+                                    <div class="form-text text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- PROCESSADOS -->
+                        <div class="card mb-4 shadow border mt-5 p-3">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">{{ form.qtd_processados.label }}</h5>
+                                <div class="d-flex flex-column gap-3">
+                                    {% for subfield in form.qtd_processados %}
+                                        <label class="form-check rounded-3 border p-3 mb-2">
+                                            {{ subfield(class_="form-check-input visually-hidden") }}
+                                            <span class="text-dark fw-normal">{{ subfield.label }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% for error in form.qtd_processados.errors %}
+                                    <div class="form-text text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- DOCES -->
+                        <div class="card mb-4 shadow border mt-5 p-3">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">{{ form.qtd_doces.label }}</h5>
+                                <div class="d-flex flex-column gap-3">
+                                    {% for subfield in form.qtd_doces %}
+                                        <label class="form-check rounded-3 border p-3 mb-2">
+                                            {{ subfield(class_="form-check-input visually-hidden") }}
+                                            <span class="text-dark fw-normal">{{ subfield.label }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% for error in form.qtd_doces.errors %}
+                                    <div class="form-text text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- TIPO GORDURA -->
+                        <div class="card mb-4 shadow border mt-5 p-3">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">{{ form.tipo_gordura.label }}</h5>
+                                <div class="d-flex flex-column gap-3">
+                                    {% for subfield in form.tipo_gordura %}
+                                        <label class="form-check rounded-3 border p-3 mb-2">
+                                            {{ subfield(class_="form-check-input visually-hidden") }}
+                                            <span class="text-dark fw-normal">{{ subfield.label }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% for error in form.tipo_gordura.errors %}
+                                    <div class="form-text text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- SAL -->
+                        <div class="card mb-4 shadow border mt-5 p-3">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">{{ form.sal.label }}</h5>
+                                <div class="d-flex flex-column gap-3">
+                                    {% for subfield in form.sal %}
+                                        <label class="form-check rounded-3 border p-3 mb-2">
+                                            {{ subfield(class_="form-check-input visually-hidden") }}
+                                            <span class="text-dark fw-normal">{{ subfield.label }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% for error in form.sal.errors %}
+                                    <div class="form-text text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- REFEICOES DIARIAS (CHECKBOX) -->
+                        <div class="card mb-4 shadow border mt-5 p-3">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">{{ form.refeicoes_diarias.label }}</h5>
+                                <div class="row g-3">
+                                    {% for subfield in form.refeicoes_diarias %}
+                                        <div class="col-12 col-md-6">
+                                            <label class="form-check rounded-3 border p-3">
+                                                {{ subfield(class_="form-check-input visually-hidden") }}
+                                                <span class="text-dark fw-normal text-center d-block">{{ subfield.label }}</span>
+                                            </label>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                {% for error in form.refeicoes_diarias.errors %}
+                                    <div class="form-text text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- LIQUIDOS -->
+                        <div class="card mb-4 shadow border mt-5 p-3">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">{{ form.qtd_agua.label }}</h5>
+                                <div class="d-flex flex-column gap-3">
+                                    {% for subfield in form.qtd_agua %}
+                                        <label class="form-check rounded-3 border p-3 mb-2">
+                                            {{ subfield(class_="form-check-input visually-hidden") }}
+                                            <span class="text-dark fw-normal">{{ subfield.label }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% for error in form.qtd_agua.errors %}
+                                    <div class="form-text text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- ALCOOL -->
+                        <div class="card mb-4 shadow border mt-5 p-3">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">{{ form.qtd_alcool.label }}</h5>
+                                <div class="d-flex flex-column gap-3">
+                                    {% for subfield in form.qtd_alcool %}
+                                        <label class="form-check rounded-3 border p-3 mb-2">
+                                            {{ subfield(class_="form-check-input visually-hidden") }}
+                                            <span class="text-dark fw-normal">{{ subfield.label }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% for error in form.qtd_alcool.errors %}
+                                    <div class="form-text text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- ATV FISICA -->
+                        <div class="card mb-4 shadow border mt-5 p-3">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">{{ form.atv_fisica.label }}</h5>
+                                <div class="d-flex flex-column gap-3">
+                                    {% for subfield in form.atv_fisica %}
+                                        <label class="form-check rounded-3 border p-3 mb-2">
+                                            {{ subfield(class_="form-check-input visually-hidden") }}
+                                            <span class="text-dark fw-normal">{{ subfield.label }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% for error in form.atv_fisica.errors %}
+                                    <div class="form-text text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- ROTULO ALIMENTOS -->
+                        <div class="card mb-4 shadow border mt-5 p-3 mb-5">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">{{ form.info_nutri.label }}</h5>
+                                <div class="d-flex flex-column gap-3">
+                                    {% for subfield in form.info_nutri %}
+                                        <label class="form-check rounded-3 border p-3 mb-2">
+                                            {{ subfield(class_="form-check-input visually-hidden") }}
+                                            <span class="text-dark fw-normal">{{ subfield.label }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% for error in form.info_nutri.errors %}
+                                    <div class="form-text text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        {% if not visualizar %}
+                            <div class="d-flex flex-column flex-md-row gap-3 mt-4">
+                                {% if editar %}
+                                    <!-- BOTÃO CANCELAR PARA EDIÇÃO -->
+                                    <a href="{{ url_for('pesq.minhas_pesquisas') }}"
+                                        class="btn btn-outline-primary px-3 py-2 flex-fill" role="button">
+                                        Cancelar
+                                    </a>
+                                    <button type="submit" class="btn btn-primary px-3 py-2 flex-fill">
+                                        Atualizar
+                                    </button>
+                                {% else %}
+                                    <!-- BOTÃO CANCELAR PARA NOVA PESQUISA (só pesquisador) -->
+                                    <button type="button" class="btn btn-outline-primary px-3 py-2 flex-fill" onclick="document.getElementById('cancel-form').submit();">
+                                        Cancelar
+                                    </button>
+                                    <button type="submit" class="btn btn-primary px-3 py-2 flex-fill">
+                                        Salvar
+                                    </button>
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            <!-- BOTÃO VOLTAR PARA VISUALIZAÇÃO -->
+                            <div class="d-flex justify-content-center mt-4">
+                                <a href="
+                                    {% if admin %}
+                                        {{ url_for('admin.visualizar_pesquisas') }}
+                                    {% else %}
+                                        {{ url_for('pesq.minhas_pesquisas') }}
+                                    {% endif %}" 
+                                    class="btn btn-primary px-3 py-2" role="button">
+                                    <i class="bi bi-arrow-left"></i> Voltar
+                                </a>
+                            </div>
+                        {% endif %}
+                    </form>
+                    <form id="cancel-form" method="POST" action="{{ url_for('pesq.cancelar_pesquisa') }}" style="display:none;">{{ form.hidden_tag() }}</form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</body>
+</html>

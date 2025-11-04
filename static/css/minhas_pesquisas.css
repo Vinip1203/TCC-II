@@ -1,0 +1,16 @@
+input.form-control,
+select.form-select {
+    font-size: 1em; 
+    line-height: 1.6;
+    padding: 1rem 1rem; 
+    height: calc(3.5rem + 2px); 
+}
+
+.form-control, 
+.form-select {
+    min-height: 58px;
+}
+
+.table {
+    margin-bottom: 0;
+}

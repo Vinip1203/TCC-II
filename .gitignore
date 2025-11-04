@@ -1,0 +1,11 @@
+# Arquivo de variáveis de ambiente (NUNCA compartilhar)
+.env
+
+# Sessões do Flask
+flask_session/
+
+# Arquivos temporários do Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd

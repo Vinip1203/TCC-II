@@ -1,0 +1,11 @@
+.form-control,
+.form-select {
+    font-size: 1em;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #434147;
+}

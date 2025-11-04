@@ -1,0 +1,9 @@
+Flask==3.0.3  
+Flask-Session==0.8.0  
+python-dotenv==1.0.1 
+Flask-WTF==1.2.2  
+Werkzeug==3.0.2  
+supabase==2.6.0 
+email_validator==2.2.0
+pandas==2.3.3
+plotly==6.3.1

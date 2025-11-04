@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário Sarcopenia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pesquisas/sarcopenia.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+</head>
+<body class="bg-light">
+
+    {% if admin %}
+        {% include 'navbar/nav_adm.html' %}
+    {% else %}
+        {% include 'navbar/nav_pesq.html' %}
+    {% endif %}
+
+    <div class="d-flex justify-content-center align-items-center my-5 min-vh-100">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-10 col-lg-8 col-xl-7">
+
+                    {% with messages = get_flashed_messages(with_categories=True) %}
+                        {% if messages %}
+                            <div class="flash-message text-center">
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{ category }} py-4" role="alert">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+
+                    <form method="POST" novalidate action="
+                        {% if editar %}
+                            {{ url_for('sarcopenia.editar_sarcopenia', id=id_pesquisa) }}
+                        {% else %}
+                            {{ url_for('sarcopenia.coleta_dados_sarcopenia', id_entrevistado=id_entrevistado, token=request.args.get('token')) }}
+                        {% endif %}">
+                        
+                        {{ form.hidden_tag() }}
+            
+                        <div class="card mb-4 shadow border mt-5 p-3">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">{{ form.forca.label }}</h5>
+                                <div class="d-flex flex-column gap-3">
+                                    {% for subfield in form.forca %}
+                                        <label class="form-check rounded-3 border p-3 mb-2">
+                                            {{ subfield(class_="form-check-input visually-hidden") }}
+                                            <span class="text-dark fw-normal">{{ subfield.label }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% for error in form.forca.errors %}
+                                    <div class="form-text text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="card mb-4 shadow border mt-5 p-3">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">{{ form.apoio.label }}</h5>
+                                <div class="d-flex flex-column gap-3">
+                                    {% for subfield in form.apoio %}
+                                        <label class="form-check rounded-3 border p-3 mb-2">
+                                            {{ subfield(class_="form-check-input visually-hidden") }}
+                                            <span class="text-dark fw-normal">{{ subfield.label }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% for error in form.apoio.errors %}
+                                    <div class="form-text text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="card mb-4 shadow border mt-5 p-3">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">{{ form.levantar.label }}</h5>
+                                <div class="d-flex flex-column gap-3">
+                                    {% for subfield in form.levantar %}
+                                        <label class="form-check rounded-3 border p-3 mb-2">
+                                            {{ subfield(class_="form-check-input visually-hidden") }}
+                                            <span class="text-dark fw-normal">{{ subfield.label }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% for error in form.levantar.errors %}
+                                    <div class="form-text text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="card mb-4 shadow border mt-5 p-3">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">{{ form.escada.label }}</h5>
+                                <div class="d-flex flex-column gap-3">
+                                    {% for subfield in form.escada %}
+                                        <label class="form-check rounded-3 border p-3 mb-2">
+                                            {{ subfield(class_="form-check-input visually-hidden") }}
+                                            <span class="text-dark fw-normal">{{ subfield.label }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% for error in form.escada.errors %}
+                                    <div class="form-text text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                       
+                        <div class="card mb-4 shadow border mt-5 p-3">
+                            <div class="card-body p-4 p-md-5">
+                                <h5 class="fw-bold mb-5 custom-title">{{ form.quedas.label }}</h5>
+                                <div class="d-flex flex-column gap-3">
+                                    {% for subfield in form.quedas %}
+                                        <label class="form-check rounded-3 border p-3 mb-2">
+                                            {{ subfield(class_="form-check-input visually-hidden") }}
+                                            <span class="text-dark fw-normal">{{ subfield.label }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% for error in form.quedas.errors %}
+                                    <div class="form-text text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        {% if visualizar %}
+                            <div class="card mb-4 shadow border mt-5 p-3">
+                                <div class="card-body p-4 p-md-5">
+                                    <h5 class="fw-bold mb-4 custom-title text-center">Resultado da Avaliação de Sarcopenia</h5>
+            
+                                    <div class="text-center">
+
+                                        <div class="mb-4">
+                                            {% set cor_texto = 'text-danger' if pontuacao >= 4 else 'text-success' %} 
+                    
+                                            <h1 class="display-4 fw-bold mb-2 {{ cor_texto }}">{{ pontuacao }}</h1>
+
+                                            <p class="lead fw-semibold {{ cor_texto }} mb-0">{{ risco }}</p>
+                                        </div>
+                
+                                        <div class="border-top pt-3">
+                                            <p class="small text-muted mb-1">
+                                                <span class="fw-semibold">≥ 4 pontos:</span> Alto risco de sarcopenia
+                                            </p>
+                                            <p class="small text-muted mb-0">
+                                                <span class="fw-semibold">< 4 pontos:</span> Baixo risco de sarcopenia
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if not visualizar %}
+                            <div class="d-flex flex-column flex-md-row gap-3 mt-4">
+                                {% if editar %}
+                                    <!-- BOTÃO CANCELAR PARA EDIÇÃO -->
+                                    <a href="{{ url_for('pesq.minhas_pesquisas') }}"
+                                        class="btn btn-outline-primary px-3 py-2 flex-fill" role="button">
+                                        Cancelar
+                                    </a>
+                                    <button type="submit" class="btn btn-primary px-3 py-2 flex-fill">
+                                        Atualizar
+                                    </button>
+                                {% else %}
+                                    <!-- BOTÃO CANCELAR PARA NOVA PESQUISA (só pesquisador) -->
+                                    <button type="button" class="btn btn-outline-primary px-3 py-2 flex-fill" onclick="document.getElementById('cancel-form').submit();">
+                                        Cancelar
+                                    </button>
+                                    <button type="submit" class="btn btn-primary px-3 py-2 flex-fill">
+                                        Salvar
+                                    </button>
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            <!-- BOTÃO VOLTAR PARA VISUALIZAÇÃO -->
+                            <div class="d-flex justify-content-center mt-4">
+                                <a href="
+                                    {% if admin %}
+                                        {{ url_for('admin.visualizar_pesquisas') }}
+                                    {% else %}
+                                        {{ url_for('pesq.minhas_pesquisas') }}
+                                    {% endif %}" 
+                                    class="btn btn-primary px-3 py-2" role="button">
+                                    <i class="bi bi-arrow-left"></i> Voltar
+                                </a>
+                            </div>
+                        {% endif %}
+                    </form>
+                    <form id="cancel-form" method="POST" action="{{ url_for('pesq.cancelar_pesquisa') }}" style="display:none;">{{ form.hidden_tag() }}</form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</body>
+</html>

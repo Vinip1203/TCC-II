@@ -1,0 +1,40 @@
+.form-check:has(.form-check-input:checked) {
+    border-color: #3886fa !important; 
+    background-color: #cfe2ff !important;
+}
+
+.custom-title {
+    font-size: 1.3rem;
+}
+
+input.form-control {
+    font-size: 1em;
+    line-height: 1;
+    padding-top: 1rem; 
+    padding-bottom: 1rem;
+}
+
+/* Remove as setinhas do navegador nos campos numéricos */
+.form-control::-webkit-outer-spin-button,
+.form-control::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.form-control:disabled {
+    background-color: transparent !important;
+}
+
+@media (max-width: 768px) {
+    
+    .custom-title {
+        text-align: center; 
+    }
+
+    .form-check {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center; 
+    }
+}

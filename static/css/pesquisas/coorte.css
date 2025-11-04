@@ -1,0 +1,66 @@
+table th,
+table td {
+    font-weight: 500;
+    color: #434147 !important;
+}
+
+table td .form-control {
+    box-shadow: none !important;
+    border: none;
+}
+
+.divider-aligned {
+    margin: 3rem 0;
+    padding: 0 1.2rem;
+    box-sizing: border-box;
+}
+
+.divider-text {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-weight: 500;
+    color: #6c757d;
+}
+
+.divider-text::before,
+.divider-text::after {
+    content: "";
+    flex: 1;
+    border-top: 1px solid #dee2e6;
+}
+
+.divider-text span {
+    padding: 0 0.75rem;
+}
+
+.text-nowrap-desktop {
+    white-space: nowrap; 
+}
+
+.form-control::-webkit-outer-spin-button,
+.form-control::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.form-control:disabled {
+    background-color: transparent !important;
+}
+
+@media (max-width: 990px) {
+
+    .text-nowrap-desktop {
+        white-space: normal !important; 
+    }
+
+    table td .form-control {
+        width: 100% !important;
+        font-size: 0.9rem;
+    }
+
+    table td, 
+    table th {
+        padding: 0.4rem 0.5rem !important;
+    }
+}

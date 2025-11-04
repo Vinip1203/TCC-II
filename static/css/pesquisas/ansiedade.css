@@ -1,0 +1,23 @@
+.question-item {
+    border-bottom: 1px solid #e9ecef;
+    padding: 1rem 0;
+    display: flex;
+    align-items: center;
+}
+
+.form-check-input[type="radio"] {
+    width: 1.25em;
+    height: 1.25em;
+    margin-top: 0.15em;
+}
+
+@media (max-width: 767px) {
+
+    .question-item {
+        display: block;
+    }
+    
+    .header-pergunta {
+        display: none;
+    }
+}

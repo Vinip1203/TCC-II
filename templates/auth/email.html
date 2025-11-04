@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: sans-serif;
+            background: #f4f4f4;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .button-wrapper {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .button {
+            background: #0d6efd;
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Alteração de senha solicitada</h2>
+        <p>
+            Use o botão abaixo para redefinir sua senha.
+            Se você não solicitou essa alteração, ignore este e-mail.
+        </p>
+        <div class="button-wrapper">
+            <a href="{{ link }}" target="_blank" class="button">Redefinir senha</a>
+        </div>
+    </div>
+</body>
+</html>

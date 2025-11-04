@@ -1,0 +1,17 @@
+input.form-control {
+    font-size: 1em;
+    line-height: 1;
+    padding-top: 1rem; 
+    padding-bottom: 1rem;
+}
+
+.form-check-input[type="radio"] {
+    width: 1.25em;
+    height: 1.25em;
+    margin-top: 0.15em;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #434147;
+}
